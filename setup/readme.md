@@ -55,4 +55,52 @@ Next is to figure out what region(s) are both acceptable to me (europe) and have
 
 At time of writing, it looks like the `NC` class of machines are available in North Europe, West Europe and Uk South.
 
-OK, let's try `Standard_NC6` in `northeurope`.
+OK, let's try `Standard_NC6` in `northeurope`.  Per the script, we can find available sizes by running the following command:
+
+    az vm list-sizes -l northeurope -o table | grep NC
+
+az vm list-sizes -l northeurope -o table | grep NC
+12                  114688        Standard_NC6s_v3        6                1047552           344064
+24                  229376        Standard_NC12s_v3       12               1047552           688128
+32                  458752        Standard_NC24rs_v3      24               1047552           1376256
+32                  458752        Standard_NC24s_v3       24               1047552           1376256
+24                  57344         Standard_NC6            6                1047552           389120
+48                  114688        Standard_NC12           12               1047552           696320
+64                  229376        Standard_NC24           24               1047552           1474560
+64                  229376        Standard_NC24r          24               1047552           1474560
+24                  57344         Standard_NC6_Promo      6                1047552           389120
+48                  114688        Standard_NC12_Promo     12               1047552           696320
+64                  229376        Standard_NC24_Promo     24               1047552           1474560
+64                  229376        Standard_NC24r_Promo    24               1047552           1474560
+
+So it looks like `Standard_NC6` is indeed available in the `northeurope` region.
+
+OK, let's give it a go... and that seemed to work.
+
+Next step is to [login to Jupyter](https://13.69.254.137:8000).  **NOTE** the IP address changes every time the VM is deallocated &re-started.
+
+## Get IP address
+
+    az vm list-ip-addresses --resource-group fastai2 --name fastai2 -o table
+
+## Stopping the VM
+
+To save £££s: instructions [here](https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az_vm_deallocate):
+
+    az vm deallocate --resource-group fastai2 --name fastai2
+
+## Re-starting it
+
+Instructions [here](https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az_vm_start):
+
+    az vm start --resource-group fastai2 --name fastai2
+
+## Check VM status
+
+    az vm get-instance-view --resource-group fastai2 --name fastai2 -o table
+
+
+
+
+
+    

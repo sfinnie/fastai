@@ -1,5 +1,13 @@
 # Setting up an Azure Data Science VM to use with the Fast.ai course
 
+To use the VM once setup complete, first log in:
+
+    az login
+
+Then use [start_vm.sh](../start_vm.sh), [stop_vm.sh](../stop_vm.sh) and [vm_status.sh](../vm_status.sh).  Instructions below
+
+Instructions for creating the VM in the first place below.
+
 Instructions are [here](https://course.fast.ai/start_azure_dsvm).  The standard [script](https://raw.githubusercontent.com/Azure/DataScienceVM/master/Samples/fastai2/fastai2onAzureSpotDSVM.sh) sets the machine up in the `westus2` region.  So first order is to figure out if it's possible to use a european location instead.
 
 First off, [install the azure cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
@@ -82,22 +90,6 @@ Next step is to [login to Jupyter](https://13.69.254.137:8000).  **NOTE** the IP
 ## Get IP address
 
     az vm list-ip-addresses --resource-group fastai2 --name fastai2 -o table
-
-## Stopping the VM
-
-To save £££s: instructions [here](https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az_vm_deallocate):
-
-    az vm deallocate --resource-group fastai2 --name fastai2
-
-## Re-starting it
-
-Instructions [here](https://docs.microsoft.com/en-us/cli/azure/vm?view=azure-cli-latest#az_vm_start):
-
-    az vm start --resource-group fastai2 --name fastai2
-
-## Check VM status
-
-    az vm get-instance-view --resource-group fastai2 --name fastai2 -o table
 
 
 
